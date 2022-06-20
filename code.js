@@ -1,49 +1,80 @@
-var cscore =0
-var hscore =0
+//need sound
+var cscore =0//computer score
+var hscore =0//human score
 function playround(pselc){
-    const x = Math.floor(Math.random() * (3 - 1 + 1) + 1);//rock is 1 paper is 2 and scissors 
-    
-    
+    const x = Math.floor(Math.random() * (3 - 1 + 1) + 1);//rock is 1 paper is 2 and scissors is 3
     if ((x==1)&&(pselc==="paper")){
-        alert("You Win! Paper beats Rock")
+        
         hscore++
+        return ("You Win! Paper beats Rock")
     }
     else if((x==3)&&(pselc==="paper")){
-        alert("You Lose! Scissors beats Paper")
         cscore++
+        return ("You Lose! Scissors beats Paper");
     }
     else if((x==2)&&(pselc==="rock")){
-        alert("You Lose! Paper beats Rock")
         cscore++
+        return "You Lose! Paper beats Rock";
     }
     else if((x==3)&&(pselc==="rock")){
-        alert("You Win! Rock beats Scissors")
         hscore++    
+        return "You Win! Rock beats Scissors";
     }
     else if((x==1)&&(pselc==="scissors")){
-        alert("You Lose! Rock beats Scissors")
         cscore++
+        return ("You Lose! Rock beats Scissors")
     }
     else if((x==2)&&(pselc==="scissors")){
-        alert("You Win! Scissors beats Paper")
+       
         hscore++
+        return("You Win! Scissors beats Paper")
     }
     else{
-        alert("draw")
+        return "draw";
+    }
+}
+function display(winner){
+    document.getElementById('result').textContent = winner;
+    const x = checkwinner();
+    if (x == 1){
+        const audio = document.querySelector(`audio[data-key="1"]`);//weird error need quotation between number
+        audio.play();
+    }
+    else if(x == 2){
+        const audio = document.querySelector(`audio[data-key="2"]`);
+        audio.play();
     }
 }
 function playr(){
-    console.log(playround("rock"));
-    document.getElementById('a').innerHTML = hscore;
-    document.getElementById('b').innerHTML = cscore;
+    display(playround("rock"));
+    document.getElementById('a').textContent = hscore;
+    document.getElementById('b').textContent = cscore;
 }
 function plays(){
-    console.log(playround("scissors"));
-    document.getElementById('a').innerHTML = hscore;
-    document.getElementById('b').innerHTML = cscore;
+    display(playround("scissors"));
+    document.getElementById('a').textContent = hscore;
+    document.getElementById('b').textContent = cscore;
 }
 function playp(){
-    console.log(playround("paper"));
-    document.getElementById('a').innerHTML = hscore;
-    document.getElementById('b').innerHTML = cscore;
+    display(playround("paper"));
+    document.getElementById('a').textContent = hscore;
+    document.getElementById('b').textContent = cscore;
+}
+function checkwinner(){
+    if (hscore>=5){
+        alert("you won the game gg")
+        hscore = 0;
+        cscore = 0;
+        document.getElementById('a').textContent = hscore;
+        document.getElementById('b').textContent = cscore;
+        return 1;
+    }
+    else if(cscore >=5 ){
+        alert("you lost the game gg")
+        hscore = 0;
+        cscore = 0;
+        document.getElementById('a').textContent = hscore;
+        document.getElementById('b').textContent = cscore;
+        return 2;
+    }
 }
